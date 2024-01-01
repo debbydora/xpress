@@ -67,7 +67,6 @@ const useSignup = () => {
 
     try {
       const newUser = AddUser(payload);
-      console.log("User registered:", newUser);
         toast.success("Registration successful! You can now log in.",{
         position: "top-right",
         autoClose: 2000,

@@ -7,9 +7,9 @@ const Pagination = ({
   rowsPerPageOptions,
   pageNumbers,
 }) => (
-  <div className="flex justify-between items-center w-full bg-white px-6 py-6 border-t border-[#EBEFF2]">
+  <div className="flex justify-between items-center w-full bg-white md:px-6  px-2 py-6 border-t border-[#EBEFF2] min-w-full">
     {/* Rows Per Page Selection */}
-    <div className="flex items-center gap-x-4">
+    <div className="flex items-center md:gap-x-4 gap-x-2">
       <label htmlFor="rowsPerPage" className="text-[#808080] text-xs ">
         Rows per page
       </label>

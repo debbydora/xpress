@@ -43,9 +43,9 @@ const Login = () => {
       </section>
       <section
         aria-label="form-section"
-        className="flex justify-center flex-col items-center"
+        className="flex justify-center flex-col items-center relative"
       >
-        <div className="!bg-white rounded-lg shadow-custom-light p-10 flex flex-col w-[522px] my-10">
+        <div className="!bg-white rounded-lg shadow-custom-light p-10 flex flex-col md:w-[522px] md:my-10 my-10">
           <div aria-label="form-header-texts" className="flex flex-col gap-1">
             <h1 className=" text-primary font-medium text-[24px]">
               Welcome Back!

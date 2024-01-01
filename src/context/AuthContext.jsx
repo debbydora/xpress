@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -8,8 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
   const [selectedTitle, setSelectedTitle] = useState("Verifiers");
+  const [isLoading, setIsLoading] = useState(true);
   const [dataNum, setDataNum] = useState(0);
-
 
   useEffect(() => {
     // Load users from local storage
@@ -28,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     if (storedSelectedTitle) {
       setSelectedTitle(storedSelectedTitle);
     }
+    setIsLoading(false);
   }, []);
 
   const AddUser = (userData) => {
@@ -56,18 +56,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   const Login = (email, password) => {
-    // Find the user with matching email and password
-    const user = users.find(
-      (u) => u.businessEmail === email && u.password === password
-    );
+    // Check if a user with the given email exists
+    const user = users.find((u) => u.businessEmail === email);
 
-    // Check if user exists, if not, show error and exit function
+    // If no user with the given email is found
     if (!user) {
-      toast.error("Invalid credentials");
-      return;
+      toast.error("User does not exist");
+      return false;
     }
 
-    // If user exists, set the authenticated user in state and store in localStorage
+    // Check if the password matches
+    if (user.password !== password) {
+      toast.error("Invalid credentials");
+      return false;
+    }
+
+    // If user exists and password matches, set the authenticated user in state and store in localStorage
     setAuthenticatedUser(user);
     localStorage.setItem("user", JSON.stringify(user));
     return true;
@@ -111,6 +115,13 @@ export const AuthProvider = ({ children }) => {
     return selectedTitle;
   };
 
+  const setDataLength = (num) => {
+    setDataNum(num);
+  };
+
+  const getDataNum = () => {
+    return dataNum;
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -122,6 +133,9 @@ export const AuthProvider = ({ children }) => {
         resetPassword,
         getSelectedTitle,
         setSelected,
+        setDataLength,
+        getDataNum,
+        isLoading,
       }}
     >
       {children}

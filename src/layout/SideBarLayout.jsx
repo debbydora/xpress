@@ -10,7 +10,7 @@ const SideBarLayout = () => {
         <SideBar />
         <div className="flex flex-col w-full overflow-hidden">
           <ProfileHeader />
-          <div className="p-8 overflow-y-auto">
+          <div className="md:p-8 p-3 overflow-y-auto">
             <Outlet />
           </div>
         </div>

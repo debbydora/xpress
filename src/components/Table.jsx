@@ -2,56 +2,82 @@ import React from "react";
 import { TfiMore } from "react-icons/tfi";
 
 const Table = ({ data, onSelectAll, onRowSelect, selectedRows }) => (
-  <table className="min-w-full divide-y bg-white divide-[#EBEFF2] shadow-custom-light rounded-t-[10px]">
-    <thead className=" text-left text-sm font-bold text-textBlack capitalize tracking-wider">
-      <tr>
-        <th className="px-6 py-3 text-left text-sm font-bold text-textBlack tracking-wider">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-indigo-600"
-            onChange={onSelectAll}
-            checked={data.length > 0 && selectedRows.length === data.length}
-          />
-        </th>
-        <th className="px-6 py-3 ">First Name</th>
-        <th className="px-6 py-3 ">Last Name</th>
-        <th className="px-6 py-3 ">Phone Number</th>
-        <th className="px-6 py-3 ">Partner</th>
-        <th className="px-6 py-3 ">Location</th>
-        <th className="px-6 py-3 ">Status</th>
-        <th className="px-6 py-3 ">Action</th>
-      </tr>
-    </thead>
-    <tbody className="bg-white divide-y divide-[#EBEFF2] whitespace-nowrap text-sm text-textBlack capitalize">
-      {data.map((row) => (
-        <tr key={row.id}>
-          <td className="px-6 py-4">
+  <div className="overflow-x-auto">
+    <table className="min-w-full divide-y bg-white divide-[#EBEFF2] shadow-custom-light rounded-t-[10px]">
+      <thead className=" text-left text-sm font-bold text-textBlack capitalize tracking-wider">
+        <tr>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
             <input
               type="checkbox"
-              className="form-checkbox h-4 w-4 text-primary"
-              checked={selectedRows.includes(row.id)}
-              onChange={() => onRowSelect(row.id)}
+              className="form-checkbox h-4 w-4 text-indigo-600"
+              onChange={onSelectAll}
+              checked={data.length > 0 && selectedRows.length === data.length}
             />
-          </td>
-          <td className="px-6 py-4 ">{row.firstName}</td>
-          <td className="px-6 py-4 ">{row.lastName}</td>
-          <td className="px-6 py-4">{formatPhoneNumber(row.phoneNumber)}</td>
-          <td className="px-6 py-4 ">{row.partner}</td>
-          <td className="px-6 py-4 ">{row.location}</td>
-          <td className={`px-6 py-4 whitespace-nowrap`}>
-            <p
-              className={`rounded-lg px-2 py-1 ${getStatusClasses(
-                row.status
-              )} `}
-            >
-              {row.status}
-            </p>
-          </td>
-          <td className="px-6 py-4 ">{<TfiMore size="20px" />}</td>
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+            First Name
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+            Last Name
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+            Phone Number
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+            Partner
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+            Location
+          </th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">Status</th>
+          <th className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">Action</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody className="bg-white divide-y divide-[#EBEFF2] whitespace-nowrap text-sm text-textBlack capitalize">
+        {data.map((row) => (
+          <tr key={row.id}>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
+              <input
+                type="checkbox"
+                className="form-checkbox h-4 w-4 text-primary"
+                checked={selectedRows.includes(row.id)}
+                onChange={() => onRowSelect(row.id)}
+              />
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
+              {row.firstName}
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
+              {row.lastName}
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
+              {formatPhoneNumber(row.phoneNumber)}
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+              {row.partner}
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3">
+              {row.location}
+            </td>
+            <td
+              className={`px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 whitespace-nowrap`}
+            >
+              <p
+                className={`rounded-lg px-2 py-1 ${getStatusClasses(
+                  row.status
+                )} `}
+              >
+                {row.status}
+              </p>
+            </td>
+            <td className="px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 ">
+              {<TfiMore size="20px" />}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 );
 
 // Helper function to format the phone number

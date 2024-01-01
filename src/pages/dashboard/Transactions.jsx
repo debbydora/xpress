@@ -28,7 +28,7 @@ const Transactions = () => {
  } = useDashboard();
  return (
    <div className="w-full min-h-screen flex flex-col">
-     <div className="w-full flex justify-between  h-[48px] items-center ">
+     <div className="w-full flex flex-col gap-y-3 md:flex-row justify-between  md:h-[48px] md:items-center ">
        <div className="">
          <Filter
            value={filter}
@@ -36,11 +36,11 @@ const Transactions = () => {
            options={filterOptions}
          />
        </div>
-       <div className="flex justify-between gap-4 ">
+       <div className="flex justify-between md:gap-4 gap-2">
          <Search value={searchTerm} onChange={handleSearchChange} />
          <Button
            text="Add New Verifier"
-           className="text-white bg-primary p-3 rounded text-[14px] flex items-center gap-2"
+           className="text-white bg-primary p-3 rounded md:text-[14px] text-xs flex items-center gap-2 whitespace-nowrap"
            icon={<FiPlus size={"24px"} />}
          />
        </div>

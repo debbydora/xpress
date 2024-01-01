@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { tableData } from "../../utils/data";
+import { useAuth } from "../../context/AuthContext";
 
 const useDashboard = () => {
+  const { setDataLength } = useAuth();
   const rowsPerPageOptions = [5, 10, 15, 20];
 
   const [selectedRows, setSelectedRows] = useState([]);
@@ -43,7 +45,7 @@ const useDashboard = () => {
     const matchesSearch =
       searchTerm === "" ||
       item.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.lastName.toLowerCase().includes(searchTerm.toLowerCase())||
+      item.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.phoneNumber.includes(searchTerm) ||
       item.location.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -66,7 +68,7 @@ const useDashboard = () => {
   // Handle rows per page change
   const handleRowsPerPageChange = (e) => {
     setRowsPerPage(Number(e.target.value));
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const generatePageNumbers = (current, total, window = 2) => {
@@ -92,6 +94,11 @@ const useDashboard = () => {
     setFilter(newValue);
     setCurrentPage(1);
   };
+  useEffect(() => {
+    if (tableData) {
+      setDataLength(tableData?.length);
+    }
+  }, [tableData]);
 
   return {
     tableData,
