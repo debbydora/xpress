@@ -1,68 +1,35 @@
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "../pages/signup/Signup";
 import Login from "../pages/login/Login";
 import NotFound from "../pages/NotFound";
-import SideBarLayout from "../layout/SideBarLayout";
-import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Deal from "../pages/dashboard/Deal";
 import Transactions from "../pages/dashboard/Transactions";
 import ProtectedRoutes from "./ProtectedRoutes";
+import SideBarLayout from "../layout/SideBarLayout";
 
-const Router = () => {
-  return (
-    <div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoutes>
-              <SideBarLayout />
-            </ProtectedRoutes>
-          }
-        >
-          <Route
-            index
-            element={
-              <ProtectedRoutes>
-                <DashboardLayout />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoutes>
-                <Dashboard />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/deals"
-            element={
-              <ProtectedRoutes>
-                <Deal />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/transactions"
-            element={
-              <ProtectedRoutes>
-                <Transactions />
-              </ProtectedRoutes>
-            }
-          />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-      <ToastContainer />
-    </div>
-  );
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SideBarLayout />,
+    children: [
+      {
+        element: <ProtectedRoutes />,
+        children: [
+          { path: "dashboard", element: <Dashboard /> },
+          { path: "deals", element: <Deal /> },
+          { path: "transactions", element: <Transactions /> },
+        ],
+      },
+    ],
+  },
+  { path: "/signup", element: <Signup /> },
+  { path: "/login", element: <Login /> },
+  { path: "*", element: <NotFound /> },
+]);
+
+const AppRouter = () => {
+  return <RouterProvider router={router} />;
 };
 
-export default Router;
+export default AppRouter;

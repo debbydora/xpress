@@ -1,18 +1,15 @@
-import react from "react"
-import Signup from "./pages/signup/Signup";
-import { BrowserRouter } from "react-router-dom";
-import Router from "./routes/Routes";
 import { AuthProvider } from "./context/AuthContext";
+import AppRouter from "./routes/Routes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-
   return (
     <>
-      <BrowserRouter>
-        <AuthProvider>
-          <Router />
-        </AuthProvider>
-      </BrowserRouter>
+      <AuthProvider>
+        <AppRouter />
+        <ToastContainer />
+      </AuthProvider>
     </>
   );
 }
